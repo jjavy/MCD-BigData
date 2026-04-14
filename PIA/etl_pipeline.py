@@ -21,10 +21,10 @@ def process_string_data(spark):
         .withColumn("protein2", regexp_replace(col("protein2"), "^9606\\.", ""))
     
     print("Filtrando interacciones fuertes...")
-    # 2. Filtrar interacciones de alta confianza (> 700)
+    # 2. Filtrar interacciones de alta confianza (>= 500)
     strong_links = links_df \
         .withColumn("combined_score", col("combined_score").cast("int")) \
-        .filter(col("combined_score") > 700)
+        .filter(col("combined_score") >= 500)
     
     print("Cargando diccionario de proteínas, renombrando columna y limpiando prefijos...")
     # 3. Cargar Info, renombrar la columna problemática y ELIMINAR el prefijo '9606.'
